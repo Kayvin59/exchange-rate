@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useCallback, useEffect, useState } from 'react'
-import { calculateExchange } from '@/lib/utils'
+import { calculateExchange, convertToUINT256 } from '@/lib/utils'
 
 export default function ExchangeForm({ exchangeRate }) {
     const [baseAmount, setBaseAmount] = useState('');
@@ -17,6 +17,15 @@ export default function ExchangeForm({ exchangeRate }) {
         setTargetAmount(e.target.value);
         setAction('target-to-base');
     }, [],);
+
+    const formatValue = () => {
+        if (action === 'base-to-target') {
+            setTargetAmount(convertToUINT256(targetAmount));
+        }
+        if (action === 'target-to-base') {
+            setBaseAmount(convertToUINT256(baseAmount));
+        }
+    }
 
     useEffect(() => {
         if (action === 'base-to-target') {
@@ -51,6 +60,11 @@ export default function ExchangeForm({ exchangeRate }) {
                 onChange={onTargetAmountChange}
             />
         </form>
+        <div>
+            <button onClick={formatValue}>
+                Convert
+            </button>
+        </div>
     </div>
   )
 }
