@@ -13,8 +13,8 @@ async function fetchData() {
 export default async function Home() {
   const exchangeRate = await fetchData()
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
-      <h1 className="text-3xl font-bold">Exchange rate between BTC & USDT</h1>
+    <main className="flex min-h-screen flex-col items-center p-6">
+      <h1 className="text-3xl text-center mb-10 font-bold">Exchange rate between BTC & USDT</h1>
       <ExchangeForm exchangeRate={exchangeRate} />
     </main>
   )
